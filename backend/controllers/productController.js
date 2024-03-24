@@ -13,8 +13,9 @@ exports.createProduct = catchAsyncErrors(async(req,res,next) => {
     })
 })
 
-exports.getAllProducts= catchAsyncErrors(async(req,res)=>{
-    const resultPerPage =5;
+exports.getAllProducts= catchAsyncErrors(async(req,res,next)=>{
+  // return next(new ErrorHander("This is my temp error",500));
+    const resultPerPage = 8;
     const productCount = await Product.countDocuments();
     const ApiFeature = new ApiFeatures(Product.find(),req.query).search().filter().pagination(resultPerPage);
     const products = await ApiFeature.query;
@@ -122,7 +123,7 @@ exports.createProductReview = catchAsyncErrors(async (req, res, next) => {
 // Get All Reviews of a product
 exports.getProductReviews = catchAsyncErrors(async (req, res, next) => {
     const product = await Product.findById(req.query.id);
-    console.log(req.query.id);
+    // console.log(req.query.id);
     if (!product) {
       return next(new ErrorHander("Product not found", 404));
     }

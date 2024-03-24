@@ -78,7 +78,8 @@ exports.newOrder = catchAsyncErrors(async (req, res, next) => {
     })
   })
 
-  exports.updateOrder = catchAsyncErrors(async (req, res, next) => {
+  //First we create an order using createOrder then using order id we update order id using status = Delivered which update orderStatus of order = Delivered  and Stock of product -1
+  exports.updateOrder = catchAsyncErrors(async (req, res, next) => { 
     const order = await Order.findById(req.params.id);
   
     if (!order) {
