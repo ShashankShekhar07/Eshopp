@@ -8,6 +8,7 @@ import ReviewCard from "./ReviewCard.js";
 import Loader from '../layout/Loader/Loader.js';
 import {useAlert} from "react-alert";
 import { CLEAR_ERRORS } from '../../constants/productConstants.js';
+import MetaData from '../layout/MetaData.js';
 //usedispatch gets function from action
 //useSelector works on retrieving state from reducers
 
@@ -37,6 +38,8 @@ const ProductDetails = ({match}) => {
   return (
     <Fragment>
         {loading ? <Loader/> : <Fragment>
+            <MetaData title={`${product.name} --ESHOPP
+            `}/>
         <div className="ProductDetails">
         <div>
         <Carousel>
