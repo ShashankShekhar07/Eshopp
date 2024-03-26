@@ -19,7 +19,6 @@ root.render(
     <App /> 
     </AlertProvider>
   </Provider>,
-  document.getElementById("root")
 );
 
 // ReactDOM.render(

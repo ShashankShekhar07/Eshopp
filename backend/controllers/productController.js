@@ -16,13 +16,14 @@ exports.createProduct = catchAsyncErrors(async(req,res,next) => {
 exports.getAllProducts= catchAsyncErrors(async(req,res,next)=>{
   // return next(new ErrorHander("This is my temp error",500));
     const resultPerPage = 8;
-    const productCount = await Product.countDocuments();
+    const productsCount = await Product.countDocuments();
     const ApiFeature = new ApiFeatures(Product.find(),req.query).search().filter().pagination(resultPerPage);
     const products = await ApiFeature.query;
     res.status(201).json({
         status: "success",
-        productCount,
-        products
+        productsCount,
+        products,
+        resultPerPage,
     })
 })
 
@@ -65,18 +66,18 @@ exports.deleteProduct =catchAsyncErrors( async(req,res)=> {
     )
 })
 
-exports.getProductDetails =catchAsyncErrors( (async (req, res, next) => {
-    const product = await Product.findById(req.params.id);
-  
-    if (!product) {
-      return next(new ErrorHander("Product not found", 404));
-    }
-  
-    res.status(200).json({
-      success: true,
-      product,
-    });
-  }))
+exports.getProductDetails = catchAsyncErrors(async (req, res, next) => {
+  const product = await Product.findById(req.params.id);
+
+  if (!product) {
+    return next(new ErrorHander("Product not found", 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    product,
+  });
+});
 // Create New Review or Update the review
 exports.createProductReview = catchAsyncErrors(async (req, res, next) => {
     const { rating, comment, productId } = req.body;
