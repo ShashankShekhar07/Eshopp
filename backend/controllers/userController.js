@@ -8,13 +8,20 @@ const productModel = require("../models/productModel");
 //Register a User
 
 exports.registerUser = catchAsyncErrors(async(req,res,next)=>{
+
+  const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar,{
+    folder: "avatars",
+    width: 150,
+    crop: "scale"
+  });
+
     const {name,email,password}  = req.body;
 
     const user= await User.create({
         name,email,password,
         avatar: {
-            public_id: "this is a sample id",
-            url :"profilepicUrl"
+            public_id: myCloud.public_id,
+            url : myCloud.secure_url,
         }
     })
     sendToken(user,201,res);
@@ -160,6 +167,25 @@ exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
     const newUserData = {
       name: req.body.name,
       email: req.body.email,
+    };
+
+    if(req.body.avatar!=""){
+      const user = await User.findById(req.user.id);
+
+      const imageId = user.avatar.public_id;
+
+      await cloudinary.v2.uploader.destroy(imageId);
+
+      const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+        folder: "avatars",
+        width: 150,
+        crop: "scale",
+      });
+
+      newUserData.avatar = {
+        public_id: myCloud.public_id,
+        url: myCloud.secure_url,
+      };
     }
 
     const user = await User.findByIdAndUpdate(req.user.id,newUserData,{
@@ -222,6 +248,7 @@ exports.deleteProfile = catchAsyncErrors(async(req,res,next)=>{
     if(!user){
       return next(new ErrorHander(`User does not exist with ID: ${req.params.id}`,400))
     }
+  
 
     await User.deleteOne({_id: req.params.id});
 

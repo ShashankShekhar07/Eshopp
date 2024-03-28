@@ -1,4 +1,5 @@
 const app =require('./app');
+const cloudinary = require("cloudinary");
 const connectDatabase = require('./config/database')
 const dotenv= require('dotenv');
 //handling uncaught exception like for e.g clg(youtube);
@@ -16,6 +17,12 @@ dotenv.config({path: "config.env"});
 
 //Connecting to database
 connectDatabase();
+
+cloudinary.config({
+    cloud_name : process.env.CLOUDINARY_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+});
 
 const server = app.listen(process.env.PORT,()=> {
     console.log(`Server is working on https:localhost:${process.env.PORT}`);

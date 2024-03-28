@@ -9,11 +9,10 @@ import { useAlert } from 'react-alert';
 import {  useDispatch } from 'react-redux';
 import {logout} from "../../../actions/userAction";
 import Backdrop from "@material-ui/core/Backdrop";
-import { useHistory } from "react-router";
+// import { useHistory } from "react-router";
 
-const UserOptions = ({user}) => {
+const UserOptions = ({user,history}) => {
     const [open,setOpen] = useState(false);
-    let history =useHistory();
     const alert = useAlert();
     const dispatch = useDispatch();
     const options= [
