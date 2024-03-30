@@ -1,4 +1,4 @@
-import React,{Fragment, useEffect} from 'react';
+import React,{Fragment, useEffect,useState} from 'react';
 import Carousel from "react-material-ui-carousel";
 import "./ProductDetails.css";
 import {useSelector,useDispatch} from "react-redux";
@@ -9,6 +9,7 @@ import Loader from '../layout/Loader/Loader.js';
 import {useAlert} from "react-alert";
 import { CLEAR_ERRORS } from '../../constants/productConstants.js';
 import MetaData from '../layout/MetaData.js';
+import { addItemsToCart } from '../../actions/cartAction.js';
 //usedispatch gets function from action
 //useSelector works on retrieving state from reducers
 
@@ -17,6 +18,26 @@ const ProductDetails = ({match}) => {
     const alert= useAlert();
     const {product,loading,error} = useSelector((state) => state.productDetails);
 
+    
+    const [quantity,setQuantity] = useState(1);
+
+    const increaseQuantity = () => {
+        if(product.Stock <= quantity) return;
+        const qty= quantity+1;
+        setQuantity(qty);
+    }
+
+    const decreaseQuantity = () => {
+        if(quantity <=1) return;
+        const qty= quantity-1;
+        setQuantity(qty);
+    }
+
+    const addToCartHandler = () => {
+        dispatch(addItemsToCart(match.params.id,quantity));
+        alert.success("Item added to cart");
+    }
+     
     useEffect(()=>{
         if(error){
             alert.error(error);
@@ -69,14 +90,14 @@ const ProductDetails = ({match}) => {
                 <h1>{`${product.price}`}</h1>
                 <div className="detailsBlock-3-1">
                     <div className="detailsBlock-3-1-1">
-                        <button>-</button>
-                        <input value="1" type="number"/>
-                        <button>+</button>
-                    </div>{" "}
-                    <button>Add To Cart</button>
+                        <button onClick={decreaseQuantity}>-</button>
+                        <input readOnly value={quantity} type="number"/>
+                        <button onClick={increaseQuantity}>+</button>
+                    </div>
+                    <button onClick={addToCartHandler}>Add To Cart</button>
                 </div>
                 <p>
-                    Status: {" "}
+                    Status:
                     <b className={product.Stock < 1? "redColor" : "greenColor"}>
                         {product.Stock<1 ? "OutOfStock" : "InStock"}
                     </b>
