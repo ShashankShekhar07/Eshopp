@@ -32,7 +32,7 @@ import MyOrders from "./component/Order/MyOrders.js";
 import OrderDetails from "./component/Order/OrderDetails.js";
 import Dashboard from "./component/admin/Dashboard.js";
 import ProductList from "./component/admin/ProductList.js";
-import newProduct from './component/admin/newProduct.js';
+import NewProduct from "./component/Cart/NewProduct.js";
 
 function App() {
 

@@ -21,7 +21,7 @@ const ProductList = ({ history }) => {
 
   const alert = useAlert();
 
-  const { error, products } = useSelector((state) => state.products); //INput products from store
+  const { error, products } = useSelector((state) => state.products); //Input products from store
 
   const { error: deleteError, isDeleted } = useSelector(
     (state) => state.product
