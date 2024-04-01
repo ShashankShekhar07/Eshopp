@@ -3,7 +3,6 @@ import Carousel from "react-material-ui-carousel";
 import "./ProductDetails.css";
 import {useSelector,useDispatch} from "react-redux";
 import {clearErrors, getProductDetails, newReview} from "../../actions/productAction";
-import ReactStars from "react-rating-stars-component";
 import ReviewCard from "./ReviewCard.js";
 import Loader from '../layout/Loader/Loader.js';
 import {useAlert} from "react-alert";
@@ -116,7 +115,7 @@ const ProductDetails = ({match}) => {
             </div>
 
             <div className='detailsBlock-2'>
-                <ReactStars {...options} />
+                <Rating {...options} />
                 <span>({product.numOfReviews} Reviews)</span>
             </div>
 
