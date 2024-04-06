@@ -35,6 +35,9 @@ import ProductList from "./component/admin/ProductList.js";
 import NewProduct from "./component/Cart/NewProduct.js";
 import UpdateProduct from "./component/admin/UpdateProduct.js";
 import OrderList from "./component/admin/OrderList.js";
+import ProcessOrder from "./component/admin/ProcessOrder.js";
+import UsersList from "./component/admin/UsersList.js";
+import UpdateUser from "./component/admin/UpdateUser.js";
 
 function App() {
 
@@ -145,6 +148,24 @@ function App() {
             exactpath="/admin/orders"
             isAdmin={true}
             component={OrderList}
+        />
+
+        <ProtectedRoute
+            exactpath="/admin/order/:id"
+            isAdmin={true}
+            component={ProcessOrder}
+        />
+
+        <ProtectedRoute
+            exactpath="/admin/users"
+            isAdmin={true}
+            component={UsersList}
+        />
+
+        <ProtectedRoute
+            exactpath="/admin/user/:id"
+            isAdmin={true}
+            component={UpdateUser}
         />
 
         </Routes>        
