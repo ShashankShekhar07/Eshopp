@@ -234,25 +234,25 @@ import ProductReviews from "./component/admin/ProductReviews";
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
 
-  const [stripeApiKey, setStripeApiKey] = useState("");
+  // const [stripeApiKey, setStripeApiKey] = useState("");
 
-  async function getStripeApiKey() {
-    const { data } = await axios.get("/api/v1/stripeapikey");
+  // async function getStripeApiKey() {
+  //   const { data } = await axios.get("/api/v1/stripeapikey");
 
-    setStripeApiKey(data.stripeApiKey);
-  }
+  //   setStripeApiKey(data.stripeApiKey);
+  // }
 
-  useEffect(() => {
-    WebFont.load({
-      google: {
-        families: ["Roboto", "Droid Sans", "Chilanka"],
-      },
-    });
+  // useEffect(() => {
+  //   WebFont.load({
+  //     google: {
+  //       families: ["Roboto", "Droid Sans", "Chilanka"],
+  //     },
+  //   });
 
-    store.dispatch(loadUser());
+  //   store.dispatch(loadUser());
 
-    getStripeApiKey();
-  }, []);
+  //   // getStripeApiKey();
+  // }, []);
 
   // window.addEventListener("contextmenu", (e) => e.preventDefault());
 
@@ -272,10 +272,9 @@ function App() {
 
 
       <Route path="/" element={<Home />} />
-        <Route path="/product/:id" element={<ProductDetails />} />
-        <Route path="/products" element={<Products />} />
-        <Route path="/products/:keyword" element={<Products />} />
-        <Route path="/search" element={<Search />} />
+        <Route exact path="/product/:id" element={<ProductDetails />} />
+        <Route path="/products/" element={<Products />} />
+        <Route path="/search/" element={<Search />} />
         <Route path="/login" element={<LoginSignUp />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/shipping" element={<Shipping />} />

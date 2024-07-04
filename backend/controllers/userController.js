@@ -133,16 +133,16 @@ exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
     sendToken(user, 200, res);
   });
 
-  //For watching user's own details
-  exports.getUserDetails = catchAsyncErrors(async(req,res,next) => {
-    const user = await User.findById(req.user.id);
+// Get User Detail
+exports.getUserDetails = catchAsyncErrors(async (req, res, next) => {
+  const user = await User.findById(req.user.id);
 
-    res.status(200).json({
-      success: true,
-      user
-    })
-  })
-  
+  res.status(200).json({
+    success: true,
+    user,
+  });
+});
+
   exports.updatePassword = catchAsyncErrors(async(req,res,next)=>{
     const user= await User.findById(req.user.id).select("password");
 
